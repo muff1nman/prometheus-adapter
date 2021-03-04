@@ -25,13 +25,13 @@ type DiscoveryRule struct {
 	// that can't be represented in the SeriesQuery (e.g. series matching `container_.+`
 	// not matching `container_.+_total`.  A filter will be automatically appended to
 	// match the form specified in Name.
-	SeriesFilters []RegexFilter `json:"seriesFilters" yaml:"seriesFilters"`
+	SeriesFilters []RegexFilter `json:"seriesFilters,omitempty" yaml:"seriesFilters,omitempty"`
 	// Resources specifies how associated Kubernetes resources should be discovered for
 	// the given metrics.
 	Resources ResourceMapping `json:"resources" yaml:"resources"`
 	// Name specifies how the metric name should be transformed between custom metric
 	// API resources, and Prometheus metric names.
-	Name NameMapping `json:"name" yaml:"name"`
+	Name NameMapping `json:"name,omitempty" yaml:"name,omitempty"`
 	// MetricsQuery specifies modifications to the metrics query, such as converting
 	// cumulative metrics to rate metrics.  It is a template where `.LabelMatchers` is
 	// a the comma-separated base label matchers and `.Series` is the series name, and
@@ -72,12 +72,12 @@ type NameMapping struct {
 	// Matches is a regular expression that is used to match
 	// Prometheus series names.  It may be left blank, in which
 	// case it is equivalent to `.*`.
-	Matches string `json:"matches" yaml:"matches"`
+	Matches string `json:"matches,omitempty" yaml:"matches,omitempty"`
 	// As is the name used in the API.  Captures from Matches
 	// are available for use here.  If not specified, it defaults
 	// to $0 if no capture groups are present in Matches, or $1
 	// if only one is present, and will error if multiple are.
-	As string `json:"as" yaml:"as"`
+	As string `json:"as,omitempty" yaml:"as,omitempty"`
 }
 
 // ResourceRules describe the rules for querying resource metrics

@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/MetricsDiscoveryConfig",
+  "definitions": {
+    "DiscoveryRule": {
+      "required": [
+        "seriesQuery",
+        "resources"
+      ],
+      "properties": {
+        "seriesQuery": {
+          "type": "string"
+        },
+        "seriesFilters": {
+          "items": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "$ref": "#/definitions/RegexFilter"
+          },
+          "type": "array"
+        },
+        "resources": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/ResourceMapping"
+        },
+        "name": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/NameMapping"
+        },
+        "metricsQuery": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "GroupResource": {
+      "required": [
+        "resource"
+      ],
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "resource": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "MetricsDiscoveryConfig": {
+      "required": [
+        "rules"
+      ],
+      "properties": {
+        "rules": {
+          "items": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "$ref": "#/definitions/DiscoveryRule"
+          },
+          "type": "array"
+        },
+        "resourceRules": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/ResourceRules"
+        },
+        "externalRules": {
+          "items": {
+            "$ref": "#/definitions/DiscoveryRule"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "NameMapping": {
+      "properties": {
+        "matches": {
+          "type": "string"
+        },
+        "as": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "RegexFilter": {
+      "properties": {
+        "is": {
+          "type": "string"
+        },
+        "isNot": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ResourceMapping": {
+      "properties": {
+        "template": {
+          "type": "string"
+        },
+        "overrides": {
+          "patternProperties": {
+            ".*": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "$ref": "#/definitions/GroupResource"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ResourceRule": {
+      "required": [
+        "containerQuery",
+        "nodeQuery",
+        "resources",
+        "containerLabel"
+      ],
+      "properties": {
+        "containerQuery": {
+          "type": "string"
+        },
+        "nodeQuery": {
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceMapping"
+        },
+        "containerLabel": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ResourceRules": {
+      "required": [
+        "cpu",
+        "memory",
+        "window"
+      ],
+      "properties": {
+        "cpu": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/ResourceRule"
+        },
+        "memory": {
+          "$ref": "#/definitions/ResourceRule"
+        },
+        "window": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  }
+}

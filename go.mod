@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/NYTimes/gziphandler v1.0.1 // indirect
+	github.com/alecthomas/jsonschema v0.0.0-20210301060011-54c507b6f074
 	github.com/go-openapi/spec v0.19.8
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/kubernetes-sigs/custom-metrics-apiserver v0.0.0-20201110135240-8c12d6d92362
